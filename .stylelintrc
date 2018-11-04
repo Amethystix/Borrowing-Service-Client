@@ -1,0 +1,16 @@
+{
+  "processors": ["stylelint-processor-html"],
+  "extends": "stylelint-config-recommended",
+  "plugins": [
+    "stylelint-scss",
+    "stylelint-order"
+  ],
+  "rules": {
+    "block-closing-brace-newline-after": "always",
+    "indentation": 2,
+    "declaration-block-no-shorthand-property-overrides": true,
+    "number-leading-zero": "never",
+    "order/properties-alphabetical-order": true,
+    "shorthand-property-no-redundant-values": true,
+  }
+}
