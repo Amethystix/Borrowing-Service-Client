@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { Prop, Vue, Component } from "vue-property-decorator";
+import { Prop, Vue, Component } from 'vue-property-decorator';
 
 @Component
 export default class LButton extends Vue {
@@ -22,7 +22,10 @@ export default class LButton extends Vue {
 button {
   font-size: 16px;
   font-weight: 700;
-  width: 100%;
+
+  &:focus {
+    outline: 0;
+  }
 }
 
 .primary {
@@ -43,5 +46,31 @@ button {
     border-color: $magenta;
   }
 
+  &:focus {
+    box-shadow: 0px 1px 10px 1px $dark-purple;
+  }
 }
+
+.search {
+  background-color: $white;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  color: $dark-purple;
+  height: 100%;
+  padding: 11px;
+  width: auto;
+  
+  &:hover {
+    background-color: $med-purple;
+  }
+  
+  &:active {
+    background-color: $magenta;
+  }
+
+  &:focus {
+    box-shadow: 0px 1px 10px 1px $dark-purple;
+  }
+}
+
 </style>
