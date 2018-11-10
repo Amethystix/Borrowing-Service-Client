@@ -1,0 +1,19 @@
+// Global stylesheet
+@import 'variables';
+
+@font-face {
+  font-family: 'Arvo';
+  font-style: normal;
+  font-weight: normal;
+  src: url('https://fonts.googleapis.com/css?family=Arvo');
+}
+
+body {
+  font-family: 'Arvo', serif;
+  font-size: 14px;
+}
+
+.btn-wrapper {
+  max-width: 300px;
+  width: fit-content;
+}
