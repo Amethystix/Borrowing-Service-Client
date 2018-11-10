@@ -53,8 +53,8 @@ button {
 
 .search {
   background-color: $white;
-  border-bottom-right-radius: 5px;
-  border-top-right-radius: 5px;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
   color: $dark-purple;
   height: 100%;
   padding: 11px;

@@ -31,7 +31,7 @@ export default class Header extends Vue {}
   .outer-magenta-bottom {
     background-color: $magenta;
     box-shadow: 0px 1px 50px -10px $black;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
   }
 
   .outer-purple-bottom {

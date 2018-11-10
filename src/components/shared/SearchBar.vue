@@ -1,7 +1,6 @@
 <template>
   <div id="search-bar">
-    <label for="search-input">What are you looking for today?</label>
-    <input type="text" id="search-input">
+    <input type="text" id="search-input" placeholder="What are you looking for today?">
     <LButton btnClass="search" btnId="search-button" btnLabel="Search"></LButton>
   </div>
 </template>
@@ -26,7 +25,7 @@ export default class SearchBar extends Vue {
 
 #search-bar {
 
-  margin: auto;
+  margin: 10px auto 0;
   width: 75%;
 
   .searchButton {
@@ -36,20 +35,20 @@ export default class SearchBar extends Vue {
   }
 
   #search-input {
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
+    border: px solid $white;
+    border-bottom-left-radius: 8px;
+    border-right: none;
+    border-top-left-radius: 8px;
     display: inline-block;
     font-size: 16px;
     padding: 10px;
     width: 80%;
+
+    &:focus {
+      box-shadow: 0px 1px 10px 1px $dark-purple;
+      outline: 0;
+    }
   }
 
-  label {
-    color: $faded-gray;
-    font-size: 16px;
-    left: 15px;
-    position: relative;
-    top: 30px;
-  }
 }
 </style>
