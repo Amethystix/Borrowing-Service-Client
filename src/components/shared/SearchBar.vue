@@ -24,25 +24,25 @@ export default class SearchBar extends Vue {
 @import '../../assets/stylesheets/variables';
 
 #search-bar {
-
+  display: inline-flex;
   margin: 10px auto 0;
-  width: 75%;
+  width: 80%;
 
   .searchButton {
-    display: inline-block;
+    flex-grow: 1;
     height: 40px;
     width: 50px;
   }
 
   #search-input {
-    border: px solid $white;
+    border: 5px solid $lavender;
     border-bottom-left-radius: 8px;
     border-right: none;
     border-top-left-radius: 8px;
-    display: inline-block;
+    flex-grow: 3;
     font-size: 16px;
+    margin: 0;
     padding: 10px;
-    width: 80%;
 
     &:focus {
       box-shadow: 0px 1px 10px 1px $dark-purple;

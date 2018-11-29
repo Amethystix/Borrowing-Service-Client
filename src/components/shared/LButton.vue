@@ -52,20 +52,22 @@ button {
 }
 
 .search {
-  background-color: $white;
+  background-color: $lavender;
   border-bottom-right-radius: 8px;
   border-top-right-radius: 8px;
-  color: $dark-purple;
+  border-width: 0;
+  color: $white;
   height: 100%;
-  padding: 11px;
+  margin: 0;
+  padding: 15px;
   width: auto;
   
   &:hover {
-    background-color: $med-purple;
+    background-color: $dark-purple;
   }
   
   &:active {
-    background-color: $magenta;
+    background-color: $mauve;
   }
 
   &:focus {

@@ -13,7 +13,41 @@ import LButton from '@/components/shared/LButton.vue';
     LButton,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  // Feed item mock
+  public feedItems = [
+    {
+      borrower: 'Sarah',
+      itemName: 'Some Sugar',
+      linkToitem: '#',
+      owner: 'Henry',
+    },
+    {
+      borrower: 'Sarah',
+      itemName: 'Some Sugar',
+      linkToitem: '#',
+      owner: 'Henry',
+    },
+    {
+      borrower: 'Sarah',
+      itemName: 'Some Sugar',
+      linkToitem: '#',
+      owner: 'Henry',
+    },
+    {
+      borrower: 'Sarah',
+      itemName: 'Some Sugar',
+      linkToitem: '#',
+      owner: 'Henry',
+    },
+    {
+      borrower: 'Sarah',
+      itemName: 'Some Sugar',
+      linkToitem: '#',
+      owner: 'Henry',
+    },
+  ];
+}
 </script>
 
 <style lang="scss" scoped>

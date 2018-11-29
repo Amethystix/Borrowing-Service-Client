@@ -18,11 +18,13 @@ export default {
   components: {
     'pt-header': Header,
     'pt-footer': Footer,
-  }
-}
+  },
+};
 </script>
 <style lang="scss">
+@import './assets/stylesheets/variables';
 body {
+  background-color: $sandy-beige;
   margin: 0;
 }
 </style>
