@@ -1,12 +1,16 @@
 <template>
     <div id="footer">
-      <div class="outer-magenta">
-        <div class="outer-purple">
-          <div class="inner-purple">
-            <span class="copyright">&copy; The PalmTree team 2018</span>
+      <div class="outer-plum">
+        <div class="outer-mauve">
+          <div class="inner-lavender">
+            <div id="footer-content">
             <div class="links">
               <!--TODO: add some cute links with v-for directive-->
-              <span>Like the project?  Check out our GitHub!</span>
+              <div v-for="link in links" class="link">
+                <a target="_blank" v-bind:href="link.url" v-bind:class="link.icon">
+                </a>
+              </div>
+            </div>
             </div>
           </div>
         </div>
@@ -18,7 +22,26 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component
-export default class Footer extends Vue {}
+export default class Footer extends Vue {
+  public links = [
+    {
+      icon: 'github',
+      url: 'https://github.com/lad475/Borrowing-Service-Client',
+    },
+    {
+      icon: 'facebook',
+      url: '#',
+    },
+    {
+      icon: 'twitter',
+      url: '#',
+    },
+    {
+      icon: 'youtube',
+      url: '#',
+    },
+  ];
+}
 </script>
 
 <style scoped lang="scss">
@@ -27,24 +50,23 @@ export default class Footer extends Vue {}
 #footer {
 
   bottom: 0;
-  position: absolute;
+  position: relative;
   width: 100%;
 
-  .outer-magenta {
-    background-color: $magenta;
-    box-shadow: 0 0 50px -10px $black;
+  .outer-plum {
+    background-color: $plum;
+    box-shadow: 0 0 50px -10px $dark-gray;
     padding-top: 20px;
   }
 
-  .outer-purple {
-    background-color: $med-purple;
+  .outer-mauve {
+    background-color: $mauve;
     padding-top: 20px;
   }
 
-  .inner-purple {
-    background-color: $dark-purple;
-    padding: 30px;
-    text-align: center;
+  .inner-lavender {
+    background-color: $lavender;
+    padding: 15px;
   }
 
   .copyright {
@@ -53,10 +75,29 @@ export default class Footer extends Vue {}
     font-size: 18px;
   }
 
-  .links {
-    color: $white;
-    float: right;
-    font-size: 18px;
+  .link {
+    display: inline-block;
+    margin: 0 10px;
   }
+
+
+  $icons: 'github', 'facebook', 'youtube', 'twitter';
+
+  @each $icon in $icons {
+    .#{$icon} {
+      background-image: url('../../assets/icons/#{$icon}-logo-white.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: inline-block;
+      height: 30px;
+      width: 30px;
+
+      &:hover {
+        background-image: url('../../assets/icons/#{$icon}-logo.svg');
+      }
+    }
+  }
+
+
 }
 </style>

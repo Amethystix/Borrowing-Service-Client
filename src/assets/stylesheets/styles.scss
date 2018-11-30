@@ -2,18 +2,30 @@
 @import 'variables';
 
 @font-face {
-  font-family: 'Arvo';
+  font-family: 'Another Flight';
   font-style: normal;
   font-weight: normal;
-  src: url('https://fonts.googleapis.com/css?family=Arvo');
+  src: url('~/assets/fonts/Another\ Flight.otf'), format('opentype');
 }
 
 body {
-  font-family: 'Arvo', serif;
+  font-family: 'Another Flight', sans-serif;
   font-size: 14px;
 }
 
 .btn-wrapper {
   max-width: 300px;
   width: fit-content;
+}
+
+.col-container {
+  display: flex;
+}
+
+.col-1 {
+  flex-grow: 1;
+}
+
+.col-2 {
+  flex-grow: 2;
 }
