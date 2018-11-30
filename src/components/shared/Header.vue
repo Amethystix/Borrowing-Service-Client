@@ -8,6 +8,9 @@
       </div>
       <div class="outer-mauve-bottom" ref="header-mauve">
       <div class="login-link-container col-1" v-if="!loggedIn">
+        <span class="about-link">
+          <router-link to="/about">About</router-link>
+        </span>
         <span class="login-link">
           <router-link to="/login">Log in</router-link>
         </span>
@@ -115,7 +118,7 @@ export default class Header extends Vue {
     width: 55px;
   }
 
-  .login-link > a {
+  %header-links {
     color: $white;
     font-size: 16px;
     font-weight: bold;
@@ -127,10 +130,19 @@ export default class Header extends Vue {
     }
   }
 
+  .login-link > a {
+    @extend %header-links;
+    float: right;
+  }
+
+  .about-link > a {
+    @extend %header-links;
+    float: left;
+  }
+
   .login-link-container {
     display: inline-block;
     position: relative;
-    text-align: right;
     top: 10px;
   }
 
