@@ -1,13 +1,13 @@
 <template>
 <div id="header">
-    <div class="outer-mauve-bottom" ref="header-mauve">
       <div class="inner-lavender">
         <div class="logo-container">
           <router-link to="/" class="logo"></router-link>
           <h1>PalmTree</h1>
         </div>
       </div>
-      <div class="login-link-container" v-if="!loggedIn">
+      <div class="outer-mauve-bottom" ref="header-mauve">
+      <div class="login-link-container col-1" v-if="!loggedIn">
         <span class="login-link">
           <router-link to="/login">Log in</router-link>
         </span>
@@ -85,13 +85,16 @@ export default class Header extends Vue {
 
   .outer-mauve-bottom {
     background-color: $mauve;
+    display: inline-flex;
     padding-bottom: 20px;
+    width: 100%;
   }
 
   .inner-lavender {
     background-color: $lavender;
     padding: 10px 20px 20px;
     text-align: left;
+    width: 100%;
   }
 
   h1 {
@@ -125,8 +128,9 @@ export default class Header extends Vue {
   }
 
   .login-link-container {
+    display: inline-block;
     position: relative;
-    right: 0;
+    text-align: right;
     top: 10px;
   }
 
