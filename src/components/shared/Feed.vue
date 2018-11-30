@@ -1,7 +1,7 @@
 <template>
   <div class="feedItems">
     <div v-for="(item, index) in feedItems">
-      <FeedItem v-bind:feedClass="index % 2 === 0 ? 'lavender' : 'white'" 
+      <FeedItem v-bind:feedClass="index % 2 === 0 ? 'mint' : 'white'" 
                 v-bind:borrower="item.borrower"
                 v-bind:owner="item.owner"
                 v-bind:itemName="item.itemName"
@@ -83,7 +83,7 @@ export default class Feed extends Vue {
 <style lang="scss" scoped>
 
 .feedItems {
-  padding: 20px 15px;
+  padding: 20px 25px;
 }
 </style>
 

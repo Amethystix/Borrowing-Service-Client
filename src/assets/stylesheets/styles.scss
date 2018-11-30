@@ -17,3 +17,15 @@ body {
   max-width: 300px;
   width: fit-content;
 }
+
+.col-container {
+  display: flex;
+}
+
+.col-1 {
+  flex-grow: 1;
+}
+
+.col-2 {
+  flex-grow: 2;
+}

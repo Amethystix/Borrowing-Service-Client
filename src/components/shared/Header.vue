@@ -3,9 +3,17 @@
     <div class="outer-mauve-bottom" ref="header-mauve">
       <div class="inner-lavender">
         <div class="logo-container">
-          <a href="#" class="logo"></a>
+          <router-link to="/" class="logo"></router-link>
           <h1>PalmTree</h1>
         </div>
+      </div>
+      <div class="login-link-container" v-if="!loggedIn">
+        <span class="login-link">
+          <router-link to="/login">Log in</router-link>
+        </span>
+        <span class="login-link">
+          <router-link to="/register">Sign up</router-link>
+        </span>
       </div>
     </div>
     <div class="outer-plum-bottom" ref="header-plum">
@@ -26,6 +34,8 @@ import SearchBar from '@/components/shared/SearchBar.vue';
 })
 export default class Header extends Vue {
 
+  private loggedIn = false;
+
   constructor() {
     super();
     window.addEventListener('scroll', () => {
@@ -36,11 +46,11 @@ export default class Header extends Vue {
   private makeSticky() {
     const stickyBar = this.$refs['header-plum'] as HTMLDivElement;
     const headerBar = this.$refs['header-mauve'] as HTMLDivElement;
-    if (window.pageYOffset >= stickyBar.clientTop + 116) {
+    if (window.pageYOffset >= stickyBar.clientTop + 133) {
       stickyBar.classList.add('sticky');
       headerBar.classList.add('stickyMauve');
-    } 
-    else if (window.pageYOffset <= 116) {
+    }
+    if (window.pageYOffset <= 133) {
       stickyBar.classList.remove('sticky');
       headerBar.classList.remove('stickyMauve');
     }
@@ -53,16 +63,18 @@ export default class Header extends Vue {
 
 #header {
 
-  box-shadow: 0px 1px 50px -10px $black;
+  box-shadow: 0px 1px 50px -10px $dark-gray;
 
   .outer-mauve-bottom.stickyMauve {
     padding-bottom: 90px;
   }
 
   .sticky {
+    box-shadow: 0px 1px 50px -10px $dark-gray;
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 1000;
   }
 
   .outer-plum-bottom {
@@ -98,6 +110,24 @@ export default class Header extends Vue {
     position: relative;
     top: 10px;
     width: 55px;
+  }
+
+  .login-link > a {
+    color: $white;
+    font-size: 16px;
+    font-weight: bold;
+    margin: auto 15px;
+    text-decoration: none;
+
+    &:hover, &:focus, &:active {
+      color: $dark-purple;
+    }
+  }
+
+  .login-link-container {
+    position: relative;
+    right: 0;
+    top: 10px;
   }
 
 }

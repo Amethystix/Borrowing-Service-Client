@@ -55,7 +55,7 @@ export default class Footer extends Vue {
 
   .outer-plum {
     background-color: $plum;
-    box-shadow: 0 0 50px -10px $black;
+    box-shadow: 0 0 50px -10px $dark-gray;
     padding-top: 20px;
   }
 

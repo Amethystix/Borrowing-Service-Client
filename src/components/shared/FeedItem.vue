@@ -25,11 +25,11 @@ export default class FeedItem extends Vue {
 
   .feedItem {
     color: $light-black;
-    padding: 25px 20px;
+    padding: 25px;
     width: auto;
   }
 
-  .lavender {
+  .mint {
     background-color: $dreamy-mint;
   }
 
