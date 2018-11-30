@@ -1,52 +1,22 @@
 <template>
   <div id="home">
-    
+    <Feed></Feed>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import LButton from '@/components/shared/LButton.vue';
+import Feed from '@/components/shared/Feed.vue';
 
 @Component({
   components: {
     LButton,
+    Feed,
   },
 })
 export default class Home extends Vue {
-  // Feed item mock
-  public feedItems = [
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToitem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToitem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToitem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToitem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToitem: '#',
-      owner: 'Henry',
-    },
-  ];
+
 }
 </script>
 

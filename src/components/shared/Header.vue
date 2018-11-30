@@ -1,7 +1,6 @@
 <template>
 <div id="header">
-  <div class="outer-plum-bottom">
-    <div class="outer-mauve-bottom">
+    <div class="outer-mauve-bottom" ref="header-mauve">
       <div class="inner-lavender">
         <div class="logo-container">
           <a href="#" class="logo"></a>
@@ -9,6 +8,7 @@
         </div>
       </div>
     </div>
+    <div class="outer-plum-bottom" ref="header-plum">
     <SearchBar></SearchBar>
   </div>
 </div>
@@ -24,16 +24,49 @@ import SearchBar from '@/components/shared/SearchBar.vue';
     SearchBar,
   },
 })
-export default class Header extends Vue {}
+export default class Header extends Vue {
+
+  constructor() {
+    super();
+    window.addEventListener('scroll', () => {
+      this.makeSticky();
+    });
+  }
+
+  private makeSticky() {
+    const stickyBar = this.$refs['header-plum'] as HTMLDivElement;
+    const headerBar = this.$refs['header-mauve'] as HTMLDivElement;
+    if (window.pageYOffset >= stickyBar.clientTop + 116) {
+      stickyBar.classList.add('sticky');
+      headerBar.classList.add('stickyMauve');
+    } 
+    else if (window.pageYOffset <= 116) {
+      stickyBar.classList.remove('sticky');
+      headerBar.classList.remove('stickyMauve');
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">
 @import '../../assets/stylesheets/variables';
 
 #header {
+
+  box-shadow: 0px 1px 50px -10px $black;
+
+  .outer-mauve-bottom.stickyMauve {
+    padding-bottom: 90px;
+  }
+
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
   .outer-plum-bottom {
     background-color: $plum;
-    box-shadow: 0px 1px 50px -10px $black;
     padding-bottom: 10px;
     text-align: center;
   }
