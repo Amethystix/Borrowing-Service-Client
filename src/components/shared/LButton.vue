@@ -14,7 +14,7 @@ export default class LButton extends Vue {
   @Prop() private btnId!: string;
   @Prop() private btnLabel!: string;
 
-  buttonClick() {
+  private buttonClick() {
     this.$emit('buttonClick');
   }
 }

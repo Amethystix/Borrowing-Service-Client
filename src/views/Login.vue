@@ -2,21 +2,23 @@
   <div id="login">
     <div class="login-container">
       <div class="page-title">Sign in to PalmTree</div>
-      <div class="login-input">
+      <div class="pt-input">
         <input type="text"
                placeholder="Username"
+               ref="username"
                v-model="username.value"
-               v-on:keyup="username.invalid=false"
+               v-on:keyup="resetValidation('username')"
                v-on:keyup.enter="submitForm()"
                v-on:blur="username.validate()"
                v-bind:class="username.invalid ? 'invalid' : 'valid'">
         <span v-if="username.invalid" class="error-msg">Please enter a valid username.</span>
       </div>
-      <div class="login-input">
+      <div class="pt-input">
         <input type="password"
                placeholder="Password"
+               ref="password"
                v-model="password.value"
-               v-on:keyup="password.invalid=false"
+               v-on:keyup="resetValidation('password')"
                v-on:keyup.enter="submitForm()"
                v-on:blur="password.validate()"
                v-bind:class="password.invalid ? 'invalid' : 'valid'">
@@ -72,15 +74,29 @@ export default class Login extends Vue {
     };
   }
 
-  submitForm() {
+  private submitForm() {
     // TODO: implement sending username val and password val
     this.username.validate();
     this.password.validate();
     if (!this.username.invalid && !this.password.invalid) {
       this.loginError = true;
+    } else if (this.username.invalid) {
+      const usernameInput = this.$refs.username as HTMLInputElement;
+      usernameInput.focus();
+    } else {
+      const passwordInput = this.$refs.password as HTMLInputElement;
+      passwordInput.focus();
     }
   }
 
+  private resetValidation(formField: string) {
+    if (formField === 'username') {
+      this.username.invalid = false;
+    } else if (formField === 'password') {
+      this.password.invalid = false;
+    }
+    this.loginError = false;
+  }
 
 }
 </script>
@@ -92,36 +108,8 @@ export default class Login extends Vue {
 #login {
   margin: auto;
 
-  .error-msg {
-    color: $error-red;
-    font-size: 12px;
-  }
-
   .login-error {
     text-align: center;
-  }
-
-  .login-input {
-    margin: 15px auto;
-    width: 80%;
-
-    input {
-      border-radius: 5px;
-      border-style: solid;
-      box-sizing: border-box;
-      margin: auto;
-      outline: none;
-      padding: 15px;
-      position: relative;
-      width: 100%;
-    }
-    .valid {
-      border-color: $dark-white;
-    }
-      
-    .invalid {
-      border-color: $error-red;
-    }
   }
 
   .login-container {

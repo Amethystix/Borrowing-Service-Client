@@ -43,3 +43,31 @@ input {
   text-align: center;
   width: 100%;
 }
+
+.pt-input {
+  margin: 15px auto;
+  width: 80%;
+
+  input {
+    border-radius: 5px;
+    border-style: solid;
+    box-sizing: border-box;
+    margin: auto;
+    outline: none;
+    padding: 15px;
+    position: relative;
+    width: 100%;
+  }
+  .valid {
+    border-color: $dark-white;
+  }
+    
+  .invalid {
+    border-color: $error-red;
+  }
+}
+
+.error-msg {
+  color: $error-red;
+  font-size: 12px;
+}
