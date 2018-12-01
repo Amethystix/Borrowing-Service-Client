@@ -13,6 +13,11 @@ body {
   font-size: 14px;
 }
 
+input {
+  font-family: 'Another Flight', sans-serif;
+  font-size: 16px;
+}
+
 .btn-wrapper {
   max-width: 300px;
   width: fit-content;
@@ -28,4 +33,13 @@ body {
 
 .col-2 {
   flex-grow: 2;
+}
+
+.page-title {
+  color: $light-black;
+  font-size: 45px;
+  font-weight: bold;
+  margin: 0 auto 40px;
+  text-align: center;
+  width: 100%;
 }

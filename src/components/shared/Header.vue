@@ -97,7 +97,6 @@ export default class Header extends Vue {
     background-color: $lavender;
     padding: 10px 20px 20px;
     text-align: left;
-    width: 100%;
   }
 
   h1 {
