@@ -44,6 +44,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import LButton from '@/components/shared/LButton.vue';
+import FormField from '@/interfaces/FormField';
 
 @Component({
   components: {
@@ -51,8 +52,8 @@ import LButton from '@/components/shared/LButton.vue';
   },
 })
 export default class Login extends Vue {
-  private username: any;
-  private password: any;
+  private username: FormField;
+  private password: FormField;
   private loginError: boolean;
 
   constructor() {
@@ -118,26 +119,6 @@ export default class Login extends Vue {
     margin: 40px auto;
     padding: 50px;
     width: 600px;
-  }
-
-  .signup-link-wrapper{
-    font-size: 14px;
-    text-align: center;
-  }
-
-  .signup-link {
-    color: $jordy-blue;
-    display: inline-block;
-    font-size: 14px;
-    margin-left: 5px;
-
-    &:visited {
-      color: $lavender;
-    }
-
-    &:focus, &:hover {
-      color: $plum;
-    }
   }
 
   @media (max-width: $tablet-screen) {
