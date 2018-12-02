@@ -19,8 +19,9 @@ input {
 }
 
 .btn-wrapper {
+  margin: 30px auto;
   max-width: 300px;
-  width: fit-content;
+  width: 50%;
 }
 
 .col-container {
@@ -70,4 +71,24 @@ input {
 .error-msg {
   color: $error-red;
   font-size: 12px;
+}
+
+.signup-link-wrapper{
+  font-size: 14px;
+  text-align: center;
+}
+
+.signup-link {
+  color: $jordy-blue;
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 5px;
+
+  &:visited {
+    color: $lavender;
+  }
+
+  &:focus, &:hover {
+    color: $plum;
+  }
 }

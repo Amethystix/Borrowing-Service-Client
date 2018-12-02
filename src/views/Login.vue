@@ -120,11 +120,6 @@ export default class Login extends Vue {
     width: 600px;
   }
 
-  .btn-wrapper {
-    margin: 30px auto;
-    width: 50%;
-  }
-
   .signup-link-wrapper{
     font-size: 14px;
     text-align: center;
