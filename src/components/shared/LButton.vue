@@ -1,6 +1,6 @@
 <!-- Reusable button component -->
 <template>
-	<button type="submit" v-bind:id="btnId" v-bind:class="btnClass">
+	<button type="submit" v-on:click="buttonClick" v-bind:id="btnId" v-bind:class="btnClass">
 	  <span>{{ btnLabel }}</span>
 	</button>
 </template>
@@ -13,6 +13,10 @@ export default class LButton extends Vue {
   @Prop() private btnClass!: string;
   @Prop() private btnId!: string;
   @Prop() private btnLabel!: string;
+
+  private buttonClick() {
+    this.$emit('buttonClick');
+  }
 }
 </script>
 
@@ -20,8 +24,10 @@ export default class LButton extends Vue {
 @import '../../assets/stylesheets/variables';
 
 button {
+  border-style: solid;
   font-size: 16px;
   font-weight: 700;
+  width: 100%;
 
   &:focus {
     outline: 0;
@@ -29,21 +35,23 @@ button {
 }
 
 .primary {
-  background-color: $med-purple;
-  border-bottom: 5px solid $magenta;
+  background-color: $mauve;
+  border-bottom: 5px solid $lavender;
   border-radius: 5px;
-  border-top: 5px solid $magenta;
+  border-top: 5px solid $lavender;
+  box-sizing: border-box;
   color: $white;
   padding: 15px 20px;
 
   &:hover {
-    background-color: $dark-purple;
-    border-color: $med-purple;
+    background-color: $plum;
+    border-color: $mauve;
+    color: $dark-white;
   }
 
   &:active {
-    background-color: $magenta;
-    border-color: $magenta;
+    background-color: $lavender;
+    border-color: $mauve;
   }
 
   &:focus {

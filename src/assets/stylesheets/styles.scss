@@ -13,9 +13,15 @@ body {
   font-size: 14px;
 }
 
+input {
+  font-family: 'Another Flight', sans-serif;
+  font-size: 16px;
+}
+
 .btn-wrapper {
+  margin: 30px auto;
   max-width: 300px;
-  width: fit-content;
+  width: 50%;
 }
 
 .col-container {
@@ -28,4 +34,61 @@ body {
 
 .col-2 {
   flex-grow: 2;
+}
+
+.page-title {
+  color: $light-black;
+  font-size: 45px;
+  font-weight: bold;
+  margin: 0 auto 40px;
+  text-align: center;
+  width: 100%;
+}
+
+.pt-input {
+  margin: 15px auto;
+  width: 80%;
+
+  input {
+    border-radius: 5px;
+    border-style: solid;
+    box-sizing: border-box;
+    margin: auto;
+    outline: none;
+    padding: 15px;
+    position: relative;
+    width: 100%;
+  }
+  .valid {
+    border-color: $dark-white;
+  }
+    
+  .invalid {
+    border-color: $error-red;
+  }
+}
+
+.error-msg {
+  color: $error-red;
+  font-size: 12px;
+}
+
+.signup-link-wrapper{
+  font-size: 14px;
+  text-align: center;
+}
+
+.signup-link {
+  color: $jordy-blue;
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 5px;
+
+  &:visited {
+    color: $lavender;
+  }
+
+  &:focus, &:hover {
+    color: $plum;
+  }
 }
