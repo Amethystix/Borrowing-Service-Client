@@ -15,6 +15,9 @@
                  v-on:keyup.enter="submitForm()"
                  v-on:keypress="name.invalid=false"
                  v-on:keyup.delete="name.invalid=false">
+          <span v-if="name.invalid" class="error-msg">
+            Please enter a valid name
+          </span>
         </div>
         <div class="col-1 pt-input">
           <input type="text"
@@ -26,6 +29,9 @@
                  v-on:keyup.enter="submitForm()"
                  v-on:keypress="zipCode.invalid=false"
                  v-on:keyup.delete="zipCode.invalid=false">
+          <span v-if="zipCode.invalid" class="error-msg">
+            Please enter a valid zip code
+          </span>
         </div>
       </div>
       <div class="col-container">
@@ -36,7 +42,6 @@
                     v-on:keyup="description.validate()"
                     v-on:blur="description.validate()"
                     v-on:keyup.enter="submitForm()">
-
           </textarea>
           <span v-bind:class="'char-remaining ' + (description.invalid ? 'error-msg' : '')">
             {{ 500 - description.value.length }} characters remaining
@@ -70,7 +75,7 @@ import LButton from '@/components/shared/LButton.vue';
 @Component({
   components: {
     LButton,
-  }
+  },
 })
 export default class NewListing extends Vue {
   private name: FormField;
@@ -86,32 +91,58 @@ export default class NewListing extends Vue {
       invalid: false,
       value: '',
       validate: () => {
-        this.name.invalid = this.name.value.length > 22 ? false : true;
-      }
+        this.name.invalid = this.name.value.length < 40 && this.name.value.length > 2 ? false : true;
+      },
     };
     this.description = {
       invalid: false,
       value: '',
       validate: () => {
         this.description.invalid = this.description.value.length > 500;
-      }
+      },
     };
     this.zipCode = {
       invalid: false,
       value: '',
       validate: () => {
         this.zipCode.invalid = !/^\d{5}(-\d{4})?$/.test(this.zipCode.value);
-      }
+      },
     };
   }
-  
-  private submitForm() {
 
+  private submitForm() {
+    this.validateAll();
+    if (!this.name.invalid && !this.description.invalid && !this.zipCode.invalid) {
+      const payload = {
+        name: this.name,
+        file: this.file,
+        zipCode: this.zipCode,
+        description: this.description,
+      };
+    } else {
+      this.focusOnFirstField();
+    }
   }
 
   private uploadFile() {
     if (this.allRefs.file.files) {
       this.file = this.allRefs.file.files[0];
+    }
+  }
+
+  private validateAll() {
+    this.name.validate();
+    this.description.validate();
+    this.zipCode.validate();
+  }
+
+  private focusOnFirstField() {
+    if (this.name.invalid) {
+      this.allRefs.name.focus();
+    } else if (this.description.invalid) {
+      this.allRefs.description.focus();
+    } else if (this.zipCode.invalid) {
+      this.allRefs.zipCode.focus();
     }
   }
 }
