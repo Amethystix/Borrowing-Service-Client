@@ -7,7 +7,8 @@
                placeholder="Username"
                ref="username"
                v-model="username.value"
-               v-on:keyup="resetValidation('username')"
+               v-on:keypress="resetValidation('username')"
+               v-on:keyup.delete="resetValidation('username')"
                v-on:keyup.enter="submitForm()"
                v-on:blur="username.validate()"
                v-bind:class="username.invalid ? 'invalid' : 'valid'">
@@ -18,7 +19,8 @@
                placeholder="Password"
                ref="password"
                v-model="password.value"
-               v-on:keyup="resetValidation('password')"
+               v-on:keypress="resetValidation('password')"
+               v-on:keyup.delete="resetValidation('password')"
                v-on:keyup.enter="submitForm()"
                v-on:blur="password.validate()"
                v-bind:class="password.invalid ? 'invalid' : 'valid'">

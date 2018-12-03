@@ -50,8 +50,9 @@ button {
   }
 
   &:active {
-    background-color: $lavender;
-    border-color: $mauve;
+    background-color: $jordy-blue;
+    border-color: $lavender;
+    color: $white;
   }
 
   &:focus {

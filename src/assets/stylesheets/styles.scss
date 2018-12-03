@@ -49,10 +49,18 @@ input {
   margin: 15px auto;
   width: 80%;
 
-  input {
+  input[type=file] {
+    border: none;
+    color: $light-black;
+    padding-left: 0;
+  }
+
+  input, textarea {
     border-radius: 5px;
     border-style: solid;
+    border-width: 2px;
     box-sizing: border-box;
+    font-size: 16px;
     margin: auto;
     outline: none;
     padding: 15px;
@@ -91,4 +99,9 @@ input {
   &:focus, &:hover {
     color: $plum;
   }
+}
+
+.page-text {
+  color: $light-black;
+  font-size: 16px;
 }
