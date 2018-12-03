@@ -167,7 +167,6 @@ export default class Register extends Vue {
   }
 
 
-
   private validateAll() {
     this.formList.forEach((val) => {
       val.validate();
