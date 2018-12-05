@@ -13,8 +13,8 @@
                  placeholder="Item Name"
                  v-on:blur="name.validate()"
                  v-on:keyup.enter="submitForm()"
-                 v-on:keypress="name.invalid=false"
-                 v-on:keyup.delete="name.invalid=false">
+                 v-on:keypress="resetField(name)"
+                 v-on:keyup.delete="resetField(name)">
           <span v-if="name.invalid" class="error-msg">
             Please enter a valid name
           </span>
@@ -27,8 +27,8 @@
                  placeholder="Zip Code"
                  v-on:blur="zipCode.validate()"
                  v-on:keyup.enter="submitForm()"
-                 v-on:keypress="zipCode.invalid=false"
-                 v-on:keyup.delete="zipCode.invalid=false">
+                 v-on:keypress="resetField(name)"
+                 v-on:keyup.delete="resetField(name)">
           <span v-if="zipCode.invalid" class="error-msg">
             Please enter a valid zip code
           </span>
@@ -83,10 +83,10 @@ export default class NewListing extends Vue {
   private zipCode: FormField;
   private file!: File;
   private allRefs = this.$refs as {[key: string]: HTMLInputElement};
+  private listingError = false;
 
   constructor() {
     super();
-
     this.name = {
       invalid: false,
       value: '',
@@ -110,9 +110,14 @@ export default class NewListing extends Vue {
     };
   }
 
+  private resetField(field: FormField) {
+    field.invalid = false;
+    this.listingError = false;
+  }
+
   private submitForm() {
     this.validateAll();
-    if (!this.name.invalid && !this.description.invalid && !this.zipCode.invalid) {
+    if (!this.listingError && !this.name.invalid && !this.description.invalid && !this.zipCode.invalid) {
       const payload = {
         name: this.name,
         file: this.file,

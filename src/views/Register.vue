@@ -2,77 +2,91 @@
   <div id="register">
     <div class="register-container">
       <div class="page-title">Register</div>
-      <!-- First name input -->
-      <div class="pt-input">
-        <input type="text"
-               placeholder="First Name"
-               ref="firstName"
-               v-model="firstName.value"
-               v-on:blur="firstName.validate()"
-               v-on:keyup.enter="submitForm()"
-               v-on:keyup="firstName.invalid = false"
-               v-bind:class="firstName.invalid ? 'invalid' : 'valid'">
-        <span v-if="firstName.invalid" class="error-msg">Please enter a valid first name</span>
-      </div>
-      <!-- Last name input -->
-      <div class="pt-input">
-        <input type="text"
-               placeholder="Last Name"
-               ref="lastName"
-               v-model="lastName.value"
-               v-on:blur="lastName.validate()"
-               v-on:keyup.enter="submitForm()"
-               v-on:keyup="lastName.invalid = false"
-               v-bind:class="lastName.invalid ? 'invalid' : 'valid'">
-        <span v-if="lastName.invalid" class="error-msg">Please enter a valid last name</span>
+      <div class="col-container">
+        <!-- First name input -->
+        <div class="pt-input col-1">
+          <input type="text"
+                placeholder="First Name"
+                ref="firstName"
+                v-model="firstName.value"
+                v-on:blur="firstName.validate()"
+                v-on:keyup.enter="submitForm()"
+                v-on:keyup.delete="resetField(firstName)"
+                v-on:keypress="resetField(firstName)"
+                v-bind:class="firstName.invalid ? 'invalid' : 'valid'">
+          <span v-if="firstName.invalid" class="error-msg">Please enter a valid first name</span>
+        </div>
+        <!-- Last name input -->
+        <div class="pt-input col-1">
+          <input type="text"
+                placeholder="Last Name"
+                ref="lastName"
+                v-model="lastName.value"
+                v-on:blur="lastName.validate()"
+                v-on:keyup.enter="submitForm()"
+                v-on:keyup.delete="resetField(lastName)"
+                v-on:keypress="resetField(lastName)"
+                v-bind:class="lastName.invalid ? 'invalid' : 'valid'">
+          <span v-if="lastName.invalid" class="error-msg">Please enter a valid last name</span>
+        </div>
       </div>
       <!-- Username input -->
-      <div class="pt-input">
-        <input type="text"
-               placeholder="Username"
-               ref="username"
-               v-model="username.value"
-               v-bind:class="username.invalid ? 'invalid' : 'valid'"
-               v-on:blur="username.validate()"
-               v-on:keyup.enter="submitForm()"
-               v-on:keyup="username.invalid = false">
-        <span class="error-msg" v-if="username.invalid">Please enter a valid username</span>
+      <div class="col-container">
+        <div class="pt-input col-2">
+          <input type="text"
+                placeholder="Username"
+                ref="username"
+                v-model="username.value"
+                v-bind:class="username.invalid ? 'invalid' : 'valid'"
+                v-on:blur="username.validate()"
+                v-on:keyup.enter="submitForm()"
+                v-on:keyup.delete="resetField(username)"
+                v-on:keypress="resetField(username)">
+          <span class="error-msg" v-if="username.invalid">Please enter a valid username</span>
+        </div>
       </div>
       <!-- Email input -->
-      <div class="pt-input">
-        <input type="text"
-               placeholder="Email"
-               ref="email"
-               v-model="email.value"
-               v-bind:class="email.invalid ? 'invalid' : 'valid'"
-               v-on:blur="email.validate()"
-               v-on:keyup="email.invalid = false"
-               v-on:keyup.enter="submitForm()">
-        <span class="error-msg" v-if="email.invalid">Please enter a valid email</span>
+      <div class="col-container">
+        <div class="pt-input col-2">
+          <input type="text"
+                placeholder="Email"
+                ref="email"
+                v-model="email.value"
+                v-bind:class="email.invalid ? 'invalid' : 'valid'"
+                v-on:blur="email.validate()"
+                v-on:keyup.delete="resetField(email)"
+                v-on:keypress="resetField(email)"
+                v-on:keyup.enter="submitForm()">
+          <span class="error-msg" v-if="email.invalid">Please enter a valid email</span>
+        </div>
       </div>
       <!-- Password input -->
-      <div class="pt-input">
-        <input type="password"
-               placeholder="Password"
-               ref="password"
-               v-model="password.value"
-               v-bind:class="password.invalid ? 'invalid' : 'valid'"
-               v-on:blur="password.validate()"
-               v-on:keyup="password.invalid = false"
-               v-on:keyup.enter="submitForm()">
-        <span class="error-msg" v-if="password.invalid">Please enter a valid password</span>
-      </div>
-      <!-- Confirm password input -->
-      <div class="pt-input">
-        <input type="password"
-               placeholder="Confirm Password"
-               ref="confirmPassword"
-               v-model="confirmPassword.value"
-               v-bind:class="confirmPassword.invalid ? 'invalid' : 'valid'"
-               v-on:blur="confirmPassword.validate()"
-               v-on:keyup="confirmPassword.invalid = false"
-               v-on:keyup.enter="submitForm()">
-        <span class="error-msg" v-if="confirmPassword.invalid">Passwords either don't match, or are invalid</span>
+      <div class="col-container">
+        <div class="pt-input col-1">
+          <input type="password"
+                placeholder="Password"
+                ref="password"
+                v-model="password.value"
+                v-bind:class="password.invalid ? 'invalid' : 'valid'"
+                v-on:blur="password.validate()"
+                v-on:keyup.delete="resetField(password)"
+                v-on:keypress="resetField(password)"
+                v-on:keyup.enter="submitForm()">
+          <span class="error-msg" v-if="password.invalid">Please enter a valid password</span>
+        </div>
+        <!-- Confirm password input -->
+        <div class="pt-input col-1">
+          <input type="password"
+                placeholder="Confirm Password"
+                ref="confirmPassword"
+                v-model="confirmPassword.value"
+                v-bind:class="confirmPassword.invalid ? 'invalid' : 'valid'"
+                v-on:blur="confirmPassword.validate()"
+                v-on:keyup.delete="resetField(confirmPassword)"
+                v-on:keypress="resetField(confirmPassword)"
+                v-on:keyup.enter="submitForm()">
+          <span class="error-msg" v-if="confirmPassword.invalid">Passwords either don't match, or are invalid</span>
+        </div>
       </div>
 
       <div class="btn-wrapper">
@@ -171,13 +185,28 @@ export default class Register extends Vue {
     this.formList.push(this.confirmPassword);
   }
 
-
+  /**
+   * Calls validate on each FormField
+   */
   private validateAll() {
     this.formList.forEach((val) => {
       val.validate();
     });
   }
 
+  /**
+   * On change of a field, will trigger this function that resets the field's validity
+   * until it is finished being edited, and sets register error to false since
+   * the newly input data should be different if prior data failed registration
+   */
+  private resetField(field: FormField) {
+    field.invalid = false;
+    this.registerError = false;
+  }
+
+  /**
+   * Provides a nice way to focus on an invalid field's native element
+   */
   private focusOnFirstField() {
     const allRefs = this.$refs as {[key: string]: HTMLInputElement};
     if (this.firstName.invalid) {
@@ -195,15 +224,29 @@ export default class Register extends Vue {
     }
   }
 
+  /**
+   * Checks the validity of all form fields
+   */
   private isFormValid() {
-    return this.formList.filter((val) => val.invalid).length == 0;
+    return this.formList.filter((val) => val.invalid).length === 0;
   }
 
+  /**
+   * Submits the registration form with a post request to register endpoint.
+   *
+   * On success, will return a token and stores the token in a cookie, redirecting
+   * to the front page as a logged in user.
+   *
+   * On failure, will display an error message on the ui
+   */
   private submitForm() {
     this.validateAll();
-    this.registerError = false;
-    if (this.isFormValid()) {
+    // If the form is valid, try to create user.
+    // Prevents multiple bad attempts & malformed requests.
+    if (this.isFormValid() && !this.registerError) {
+      // Set spinner to true
       this.isLoading = true;
+      // Form payload
       const payload = {
         firstName: this.firstName.value,
         lastName: this.lastName.value,
@@ -215,18 +258,18 @@ export default class Register extends Vue {
       axios.post('http://localhost:3000/users/register', payload)
         .then((res) => {
           if (res.data.token) {
+            // Set the cookies
             this.$cookies.config('24h', 'localhost');
             this.$cookies.set('token', res.data.token, 'localhost');
             this.$cookies.set('user', res.data.userObj, 'localhost');
             this.$router.push('/');
           } else {
             this.registerError = true;
-            console.log('hey');
           }
         }).catch((err) => {
           this.registerError = true;
-          console.log('hey');
         }).finally(() => {
+          // Stop spinner when finished
           this.isLoading = false;
         });
     } else {
@@ -249,6 +292,14 @@ export default class Register extends Vue {
     margin: 30px auto;
     padding: 50px;
     width: 650px;
+  }
+
+  .col-1, .col-2 {
+    margin: 0 10px;
+  }
+
+  .col-container {
+    margin: 15px auto;
   }
 
   @media (max-width: $tablet-screen) {

@@ -42,8 +42,8 @@ import SearchBar from '@/components/shared/SearchBar.vue';
 })
 export default class Header extends Vue {
 
-  @Prop() loggedIn!: boolean;
-  @Prop() firstName!: string;
+  @Prop() private loggedIn!: boolean;
+  @Prop() private firstName!: string;
 
   constructor() {
     super();
@@ -52,7 +52,7 @@ export default class Header extends Vue {
     });
   }
 
-  created() {
+  private created() {
     this.loggedIn = this.$cookies.get('user') ? true : false;
     if (this.loggedIn) {
       this.firstName = this.$cookies.get('user').firstName;

@@ -96,10 +96,9 @@ export default class Login extends Vue {
             this.$cookies.config('24h', 'localhost');
             this.$cookies.set('token', res.data.token, undefined, undefined, 'localhost');
             this.$cookies.set('user', res.data.userObj, undefined, undefined, 'localhost');
-            this.$root.$emit('loggedIn', res.data.userObj);
             this.$router.push('/');
           } else {
-
+            this.loginError = true;
           }
         }).catch((err) => {
           this.loginError = true;
