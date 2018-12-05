@@ -79,6 +79,7 @@
         <LButton btnId="register-btn"
                  btnClass="primary"
                  btnLabel="Register"
+                 v-bind:spinning="isLoading"
                  v-on:buttonClick="submitForm()">
         </LButton>
       </div>
@@ -93,6 +94,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import LButton from '@/components/shared/LButton.vue';
 import FormField from '@/interfaces/FormField';
+import axios from 'axios';
 
 @Component({
   components: {
@@ -108,9 +110,12 @@ export default class Register extends Vue {
   private password!: FormField;
   private confirmPassword!: FormField;
   private formList!: FormField[];
+  private isLoading: boolean;
+  private registerError = false;
 
   constructor() {
     super();
+    this.isLoading = false;
     this.formList = new Array();
     this.firstName = {
       value: '',
@@ -191,12 +196,14 @@ export default class Register extends Vue {
   }
 
   private isFormValid() {
-    return this.formList.filter((val) => val.invalid).length > 0;
+    return this.formList.filter((val) => val.invalid).length == 0;
   }
 
   private submitForm() {
     this.validateAll();
+    this.registerError = false;
     if (this.isFormValid()) {
+      this.isLoading = true;
       const payload = {
         firstName: this.firstName.value,
         lastName: this.lastName.value,
@@ -205,6 +212,23 @@ export default class Register extends Vue {
         password: this.password.value,
         confirmPassword: this.confirmPassword.value,
       };
+      axios.post('http://localhost:3000/users/register', payload)
+        .then((res) => {
+          if (res.data.token) {
+            this.$cookies.config('24h', 'localhost');
+            this.$cookies.set('token', res.data.token, 'localhost');
+            this.$cookies.set('user', res.data.userObj, 'localhost');
+            this.$router.push('/');
+          } else {
+            this.registerError = true;
+            console.log('hey');
+          }
+        }).catch((err) => {
+          this.registerError = true;
+          console.log('hey');
+        }).finally(() => {
+          this.isLoading = false;
+        });
     } else {
       this.focusOnFirstField();
     }
