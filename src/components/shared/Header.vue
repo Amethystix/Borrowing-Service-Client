@@ -18,7 +18,10 @@
           <router-link to="/register">Sign up</router-link>
         </span>
         <span class="login-link" v-if="loggedIn">
-          <router-link to="/logout">Hey, {{ firstName }}!</router-link>
+          <router-link to="/">Hey, {{ firstName }}!</router-link>
+        </span>
+        <span class="login-link" v-if="loggedIn">
+          <router-link to="/logout">Log out</router-link>
         </span>
       </div>
     </div>
@@ -29,8 +32,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Component, Prop } from 'vue-property-decorator';
 import SearchBar from '@/components/shared/SearchBar.vue';
 
 @Component({
@@ -40,8 +42,8 @@ import SearchBar from '@/components/shared/SearchBar.vue';
 })
 export default class Header extends Vue {
 
-  private loggedIn!: boolean;
-  private firstName!: string;
+  @Prop() loggedIn!: boolean;
+  @Prop() firstName!: string;
 
   constructor() {
     super();
@@ -51,20 +53,6 @@ export default class Header extends Vue {
   }
 
   created() {
-    this.loggedIn = this.$cookies.get('user') ? true : false;
-    if (this.loggedIn) {
-      this.firstName = this.$cookies.get('user').firstName;
-    }
-  }
-
-  computed() {
-    this.$root.$on('loggedOut', () => {
-      this.loggedIn = false;
-    });
-    this.$root.$on('loggedIn', (user: any) => {
-      this.loggedIn = true;
-      this.firstName = user.firstName;
-    });
     this.loggedIn = this.$cookies.get('user') ? true : false;
     if (this.loggedIn) {
       this.firstName = this.$cookies.get('user').firstName;
