@@ -7,15 +7,21 @@
         </div>
       </div>
       <div class="outer-mauve-bottom" ref="header-mauve">
-      <div class="login-link-container col-1" v-if="!loggedIn">
+      <div class="login-link-container col-1">
         <span class="about-link">
           <router-link to="/about">About</router-link>
         </span>
-        <span class="login-link">
+        <span class="login-link" v-if="!loggedIn">
           <router-link to="/login">Log in</router-link>
         </span>
-        <span class="login-link">
+        <span class="login-link" v-if="!loggedIn">
           <router-link to="/register">Sign up</router-link>
+        </span>
+        <span class="login-link" v-if="loggedIn">
+          <router-link to="/">Hey, {{ firstName }}!</router-link>
+        </span>
+        <span class="login-link" v-if="loggedIn">
+          <router-link to="/logout">Log out</router-link>
         </span>
       </div>
     </div>
@@ -26,8 +32,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Component, Prop } from 'vue-property-decorator';
 import SearchBar from '@/components/shared/SearchBar.vue';
 
 @Component({
@@ -37,13 +42,21 @@ import SearchBar from '@/components/shared/SearchBar.vue';
 })
 export default class Header extends Vue {
 
-  private loggedIn = false;
+  @Prop() private loggedIn!: boolean;
+  @Prop() private firstName!: string;
 
   constructor() {
     super();
     window.addEventListener('scroll', () => {
       this.makeSticky();
     });
+  }
+
+  private created() {
+    this.loggedIn = this.$cookies.get('user') ? true : false;
+    if (this.loggedIn) {
+      this.firstName = this.$cookies.get('user').firstName;
+    }
   }
 
   private makeSticky() {

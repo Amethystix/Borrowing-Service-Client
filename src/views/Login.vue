@@ -33,6 +33,7 @@
         <LButton btnId="login-button"
                  btnClass="primary"
                  btnLabel="Log in"
+                 v-bind:spinning="loading"
                  v-on:buttonClick="submitForm()">
         </LButton>
       </div>
@@ -47,6 +48,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import LButton from '@/components/shared/LButton.vue';
 import FormField from '@/interfaces/FormField';
+import axios from 'axios';
 
 @Component({
   components: {
@@ -57,6 +59,7 @@ export default class Login extends Vue {
   private username: FormField;
   private password: FormField;
   private loginError: boolean;
+  private loading = false;
 
   constructor() {
     super();
@@ -78,11 +81,30 @@ export default class Login extends Vue {
   }
 
   private submitForm() {
-    // TODO: implement sending username val and password val
+    this.loginError = false;
     this.username.validate();
     this.password.validate();
     if (!this.username.invalid && !this.password.invalid) {
-      this.loginError = true;
+      this.loading = true;
+      const payload = {
+        username: this.username.value,
+        password: this.password.value,
+      };
+      axios.post('http://localhost:3000/users/login', payload)
+        .then((res) => {
+          if (res.data.token) {
+            this.$cookies.config('24h', 'localhost');
+            this.$cookies.set('token', res.data.token, undefined, undefined, 'localhost');
+            this.$cookies.set('user', res.data.userObj, undefined, undefined, 'localhost');
+            this.$router.push('/');
+          } else {
+            this.loginError = true;
+          }
+        }).catch((err) => {
+          this.loginError = true;
+        }).finally(() => {
+          this.loading = false;
+        });
     } else if (this.username.invalid) {
       const usernameInput = this.$refs.username as HTMLInputElement;
       usernameInput.focus();

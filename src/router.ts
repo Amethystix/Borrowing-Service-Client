@@ -34,5 +34,10 @@ export default new Router({
       name: 'new-listing',
       component: () => import ('./views/NewListing.vue'),
     },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import ('./views/Logout.vue'),
+    },
   ],
 });

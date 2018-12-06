@@ -1,7 +1,9 @@
 <!-- Reusable button component -->
 <template>
-	<button type="submit" v-on:click="buttonClick" v-bind:id="btnId" v-bind:class="btnClass">
-	  <span>{{ btnLabel }}</span>
+	<button type="submit" v-on:click="buttonClick" v-bind:id="btnId" v-bind:class="btnClass + ' ' + (spinning ? 'is-loading' : '')">
+	  <span class="content">{{ btnLabel }}
+    <div v-if="spinning" class="loading"></div>
+    </span>
 	</button>
 </template>
 
@@ -13,6 +15,7 @@ export default class LButton extends Vue {
   @Prop() private btnClass!: string;
   @Prop() private btnId!: string;
   @Prop() private btnLabel!: string;
+  @Prop() private spinning!: boolean;
 
   private buttonClick() {
     this.$emit('buttonClick');
@@ -25,13 +28,19 @@ export default class LButton extends Vue {
 
 button {
   border-style: solid;
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 700;
   width: 100%;
 
   &:focus {
     outline: 0;
   }
+}
+
+.primary.is-loading {
+  background-color: $dark-white;
+  border-color: $lavender;
+  color: $light-black;
 }
 
 .primary {
@@ -50,13 +59,31 @@ button {
   }
 
   &:active {
-    background-color: $jordy-blue;
+    background-color: $dark-white;
     border-color: $lavender;
-    color: $white;
+    color: $light-black;
   }
 
   &:focus {
     box-shadow: 0px 1px 10px 1px $dark-purple;
+  }
+
+  .loading {
+    animation: loader 1.2s linear infinite;
+    background-image: url('../../assets/images/PTSpinnerG.png');
+    background-size: cover;
+    float: right;
+    height: 25px;
+    width: 25px;
+  }
+
+  @keyframes loader {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
 

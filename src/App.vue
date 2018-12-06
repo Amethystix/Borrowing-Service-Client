@@ -1,12 +1,10 @@
 <template>
   <div id="app">
-    <pt-header/>
+    <pt-header
+      v-bind:loggedIn="$cookies.get('token')"
+      v-bind:firstName="$cookies.get('user') ? $cookies.get('user').firstName : ''"/>
     <router-view/>
     <pt-footer/>
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
   </div>
 </template>
 <script>
