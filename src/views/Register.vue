@@ -88,7 +88,10 @@
           <span class="error-msg" v-if="confirmPassword.invalid">Passwords either don't match, or are invalid</span>
         </div>
       </div>
-
+      <div class="error-msg" v-if="registerError || duplicateUser">
+        <span v-if="registerError">Registration could not be completed at this time.  We're sorry for the inconvenience.</span>
+        <span v-if="duplicateUser">The given username or email already exists in our records- please try another.</span>
+      </div>
       <div class="btn-wrapper">
         <LButton btnId="register-btn"
                  btnClass="primary"
@@ -126,6 +129,7 @@ export default class Register extends Vue {
   private formList!: FormField[];
   private isLoading: boolean;
   private registerError = false;
+  private duplicateUser = false;
 
   constructor() {
     super();
@@ -202,6 +206,7 @@ export default class Register extends Vue {
   private resetField(field: FormField) {
     field.invalid = false;
     this.registerError = false;
+    this.duplicateUser = false;
   }
 
   /**
@@ -267,7 +272,11 @@ export default class Register extends Vue {
             this.registerError = true;
           }
         }).catch((err) => {
-          this.registerError = true;
+          if (err.response.status === 409) {
+            this.duplicateUser = true;
+          } else {
+            this.registerError = true;
+          }
         }).finally(() => {
           // Stop spinner when finished
           this.isLoading = false;
