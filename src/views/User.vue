@@ -37,10 +37,18 @@
               </LButton>
             </div>
           </div>
+          <div v-if="objects.length === 0">
+            <div class="no-items">
+              This user has not listed anything yet.
+            </div>
+          </div>
         </div>
         <div v-if="!userExists">
           <div class="page-title">
             404 Not Found
+          </div>
+          <div class="page-text not-found">
+            We're sorry, but the user you're looking for doesn't exist.
           </div>
         </div>
       </div>
@@ -200,6 +208,17 @@ export default class User extends Vue {
   .item-description {
     margin-top: 15px;
     text-align: left;
+  }
+
+  .not-found {
+    font-size: 18px;
+    padding: 50px 0 75px;
+  }
+
+  .no-items {
+    font-size: 18px;
+    padding: 30px 0 150px;
+    text-align: center;
   }
 
   @media (max-width: $tablet-screen) {
