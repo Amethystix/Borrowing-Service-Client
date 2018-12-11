@@ -1,11 +1,6 @@
 <template>
   <div id="home">
     <div class="content-wrapper">
-      <div class="col-2 welcome">
-        <div id="welcome-msg">
-          <span></span>
-        </div>
-      </div>
       <div class="col-1" id="feed-container">
         <Feed></Feed>
       </div>

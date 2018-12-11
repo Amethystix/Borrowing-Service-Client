@@ -60,7 +60,8 @@
         <LButton btnId="listing-btn"
                  btnClass="primary"
                  btnLabel="Add Listing"
-                 v-on:buttonClick="submitForm()">
+                 v-on:buttonClick="submitForm()"
+                 v-bind:spinning="isLoading">
         </LButton>
       </div>
     </div>
@@ -71,6 +72,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import FormField from '@/interfaces/FormField';
 import LButton from '@/components/shared/LButton.vue';
+import axios from 'axios';
 
 @Component({
   components: {
@@ -84,6 +86,7 @@ export default class NewListing extends Vue {
   private file!: File;
   private allRefs = this.$refs as {[key: string]: HTMLInputElement};
   private listingError = false;
+  private isLoading = false;
 
   constructor() {
     super();
@@ -118,12 +121,26 @@ export default class NewListing extends Vue {
   private submitForm() {
     this.validateAll();
     if (!this.listingError && !this.name.invalid && !this.description.invalid && !this.zipCode.invalid) {
+      this.isLoading = true;
       const payload = {
-        name: this.name,
+        name: this.name.value,
         file: this.file,
-        zipCode: this.zipCode,
-        description: this.description,
+        zipCode: this.zipCode.value,
+        description: this.description.value,
       };
+      const headers = {
+        Authorization: this.$cookies.get('token'),
+      };
+      axios.post('http://localhost:3000/item/add', payload, { headers })
+        .then ((res) => {
+          if (res.data.id) {
+            this.$router.push(`/item/${res.data.id}`);
+          }
+        }).catch((err) => {
+          console.log(err);
+        }).finally(() => {
+          this.isLoading = false;
+        });
     } else {
       this.focusOnFirstField();
     }

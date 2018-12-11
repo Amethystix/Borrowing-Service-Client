@@ -11,6 +11,9 @@
         <span class="about-link">
           <router-link to="/about">About</router-link>
         </span>
+        <span class="about-link" v-if="loggedIn">
+          <router-link to="/new-listing">Create a Listing</router-link>
+        </span>
         <span class="login-link" v-if="!loggedIn">
           <router-link to="/login">Log in</router-link>
         </span>
@@ -18,7 +21,7 @@
           <router-link to="/register">Sign up</router-link>
         </span>
         <span class="login-link" v-if="loggedIn">
-          <router-link to="/">Hey, {{ firstName }}!</router-link>
+          <router-link v-bind:to="'/user/' + userId">Hey, {{ firstName }}!</router-link>
         </span>
         <span class="login-link" v-if="loggedIn">
           <router-link to="/logout">Log out</router-link>
@@ -32,8 +35,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import SearchBar from '@/components/shared/SearchBar.vue';
+import AuthGuard from '@/scripts/auth.guard';
 
 @Component({
   components: {
@@ -44,6 +48,7 @@ export default class Header extends Vue {
 
   @Prop() private loggedIn!: boolean;
   @Prop() private firstName!: string;
+  @Prop() private userId!: string;
 
   constructor() {
     super();

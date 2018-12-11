@@ -1,19 +1,31 @@
 <template>
   <div class="feedItems">
+    <div class="feed-header">
+      <span class="feed-header-text">
+        Feed
+      </span>
+      <a v-on:click="getFeed()">
+        <div v-bind:class="'refresh ' + (feedLoading ? 'loading' : '')"></div>
+      </a>
+    </div>
     <div v-for="(item, index) in feedItems">
       <FeedItem v-bind:feedClass="index % 2 === 0 ? 'mint' : 'white'" 
-                v-bind:borrower="item.borrower"
-                v-bind:owner="item.owner"
-                v-bind:itemName="item.itemName"
-                v-bind:linkToItem="item.linkToItem">
+                v-bind:owner="item.mainPersonUsername"
+                v-bind:borrower="item.secondaryPersonUsername"
+                v-bind:itemName="item.objectName"
+                v-bind:linkToItem="item.objectId"
+                v-bind:borrowerId="item.secondaryPersonId"
+                v-bind:ownerId="item.mainPersonId"
+                v-bind:action="item.action">
       </FeedItem>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import FeedItem from '@/components/shared/FeedItem.vue';
+import axios from 'axios';
 
 @Component({
   components: {
@@ -21,69 +33,73 @@ import FeedItem from '@/components/shared/FeedItem.vue';
   },
 })
 export default class Feed extends Vue {
-  public feedItems = [
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-  ];
+
+  private feedLoading = false;
+  private feedItems = [];
+
+  created() {
+    this.getFeed();
+  }
+
+  private getFeed() {
+    this.feedLoading = true;
+    axios.get('http://localhost:3000/utils/feed')
+      .then((res) => {
+        this.feedItems = res.data.slice(0, 10);
+      }).catch((err) => {
+
+      }).finally(() => {
+        this.feedLoading = false;
+        console.log(this.feedItems);
+      });
+  }
 }
+
 </script>
 
 <style lang="scss" scoped>
 
 .feedItems {
   padding: 20px 25px;
+}
+
+.feed-header {
+  background-color: $dark-white;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+}
+
+.feed-header-text {
+  display: inline-block;
+}
+
+a {
+  display: inline-block;
+  position: absolute;
+  right: 30px;
+  top: 25px;
+}
+
+.refresh {
+  background-image: url('../../assets/images/refresh.png');
+  background-size: cover;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+}
+
+.refresh.loading {
+  animation: loader 1.2s linear infinite;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
 

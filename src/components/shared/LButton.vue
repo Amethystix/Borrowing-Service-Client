@@ -1,6 +1,10 @@
 <!-- Reusable button component -->
 <template>
-	<button type="submit" v-on:click="buttonClick" v-bind:id="btnId" v-bind:class="btnClass + ' ' + (spinning ? 'is-loading' : '')">
+	<button type="submit"
+          v-on:click="buttonClick"
+          v-bind:id="btnId"
+          v-bind:class="btnClass + ' ' + (spinning ? 'is-loading' : '')"
+          v-bind:disabled="isDisabled">
 	  <span class="content">{{ btnLabel }}
     <div v-if="spinning" class="loading"></div>
     </span>
@@ -16,6 +20,7 @@ export default class LButton extends Vue {
   @Prop() private btnId!: string;
   @Prop() private btnLabel!: string;
   @Prop() private spinning!: boolean;
+  @Prop() private isDisabled!: boolean;
 
   private buttonClick() {
     this.$emit('buttonClick');
@@ -66,6 +71,10 @@ button {
 
   &:focus {
     box-shadow: 0px 1px 10px 1px $dark-purple;
+  }
+
+  &:disabled {
+    background-color: $faded-gray;
   }
 
   .loading {
