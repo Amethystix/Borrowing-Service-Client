@@ -31,6 +31,10 @@ export default class LButton extends Vue {
 <style scoped lang="scss">
 @import '../../assets/stylesheets/variables';
 
+.primary.inline {
+  display: inline-block;
+}
+
 button {
   border-style: solid;
   font-size: 19px;

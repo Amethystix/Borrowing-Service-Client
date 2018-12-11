@@ -19,6 +19,10 @@
                  v-on:buttonClick="callMapReduce()">
         </LButton>
       </div>
+      <div v-for="result in mapReduceResult" class="result">
+        <span class="result-text">UUID: {{ result.uuid }}</span>
+        <span class="result-text">Rating: {{ result.rating }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -35,11 +39,22 @@ import axios from 'axios';
 })
 export default class MapReduce extends Vue {
 
-  private mapReduceResult = [];
+  private mapReduceResult = new Array();
   private isLoading = false;
 
   callMapReduce() {
+    this.isLoading = true;
+    axios.get('http://localhost:3000/reviews/map-reduce')
+      .then((res) => {
+        for (const key in res.data) {
+          this.mapReduceResult.push( { uuid: key, rating: res.data[key] });
+        }
+        console.log(this.mapReduceResult);
+      }).catch((err) => {
 
+      }).finally(() => {
+        this.isLoading = false;
+      });
   }
 }
 
@@ -55,6 +70,16 @@ export default class MapReduce extends Vue {
     margin: 20px auto;
     padding: 50px;
     width: 650px;
+  }
+
+  .result {
+    border: 1px solid $mauve;
+    padding: 10px;
+  }
+
+  .result-text {
+    display: block;
+    font-size: 16px;
   }
 
   @media (max-width: $tablet-screen) {
