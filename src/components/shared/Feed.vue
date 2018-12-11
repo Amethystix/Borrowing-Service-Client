@@ -10,12 +10,13 @@
     </div>
     <div v-for="(item, index) in feedItems">
       <FeedItem v-bind:feedClass="index % 2 === 0 ? 'mint' : 'white'" 
-                v-bind:borrower="item.mainPersonUsername"
-                v-bind:owner="item.secondaryPersonUsername"
+                v-bind:owner="item.mainPersonUsername"
+                v-bind:borrower="item.secondaryPersonUsername"
                 v-bind:itemName="item.objectName"
                 v-bind:linkToItem="item.objectId"
-                v-bind:ownerId="item.secondaryPersonId"
-                v-bind:borrowerId="item.mainPersonId">
+                v-bind:borrowerId="item.secondaryPersonId"
+                v-bind:ownerId="item.mainPersonId"
+                v-bind:action="item.action">
       </FeedItem>
     </div>
   </div>
@@ -44,11 +45,12 @@ export default class Feed extends Vue {
     this.feedLoading = true;
     axios.get('http://localhost:3000/utils/feed')
       .then((res) => {
-        this.feedItems = res.data.slice(0, 9);
+        this.feedItems = res.data.slice(0, 10);
       }).catch((err) => {
 
       }).finally(() => {
         this.feedLoading = false;
+        console.log(this.feedItems);
       });
   }
 }

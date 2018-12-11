@@ -1,6 +1,6 @@
 <template>
   <div v-bind:class="'feedItem ' + feedClass">
-    <span>
+    <span v-if="action === 'borrowed'">
       <router-link v-bind:to="'/user/' + borrowerId">
         {{ borrower }}
       </router-link> borrowed 
@@ -10,6 +10,15 @@
       <router-link v-bind:to="'/user/' + ownerId">
         {{ owner }}
       </router-link>
+    </span>
+    <span v-if="action === 'listed'">
+      <router-link v-bind:to="'/user/' + ownerId">
+        {{ owner }}
+      </router-link> put up 
+      <router-link v-bind:to="'/item/' + linkToItem">
+        {{ itemName }}
+      </router-link>
+      to be borrowed
     </span>
   </div>
 </template>
@@ -27,6 +36,7 @@ export default class FeedItem extends Vue {
   @Prop() private linkToItem!: string;
   @Prop() private ownerId!: string;
   @Prop() private borrowerId!: string;
+  @Prop() private action!: string;
 }
 </script>
 
