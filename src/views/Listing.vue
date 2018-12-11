@@ -26,6 +26,9 @@
                      v-bind:isDisabled="listingObj.isReserved || isBorrowing"
                      v-on:buttonClick="borrow()">
             </LButton>
+            <div v-if="borrowError" class="error-msg">
+              This item cannot be borrowed at this time.
+            </div>
           </div>
         </div>
         <div v-if="!listingExists" class="listing-container">
@@ -57,12 +60,12 @@ export default class Listing extends Vue {
   private isLoading = true;
   private listingExists = false;
   private isBorrowing = false;
+  private borrowError = false;
 
   private created() {
     axios.get('http://localhost:3000/item/view?id=' + this.$route.params.id)
       .then((res) => {
         if (res.data.name) {
-          console.log(res.data);
           const {
             name, ownerUsername, description, zipCode, isReserved, ownerId,
           } = res.data;
@@ -74,12 +77,14 @@ export default class Listing extends Vue {
             zipCode,
             isReserved: isReserved === 0 ? false : true,
           };
-          this.isLoading = false;
           this.listingExists = true;
+        } else {
+          this.listingExists = false;
         }
       }).catch((err) => {
-        this.isLoading = false;
         this.listingExists = false;
+      }).finally(() => {
+        this.isLoading = false;
       });
   }
 
@@ -99,20 +104,34 @@ export default class Listing extends Vue {
             zipCode,
             isReserved: isReserved === 0 ? false : true,
           };
-          this.isLoading = false;
           this.listingExists = true;
         } else {
-          this.isLoading = false;
           this.listingExists = false;
         }
       }).catch((err) => {
-        this.isLoading = false;
         this.listingExists = false;
+      }).finally(() => {
+        this.isLoading = false;
       });
   }
 
   borrow() {
-
+    this.borrowError = false;
+    const payload = {
+      itemId: this.$route.params.id,
+    };
+    const headers = {
+      Authorization: this.$cookies.get('token'),
+    }
+    this.isBorrowing = true;
+    axios.post('http://localhost:3000/item/borrow', payload, { headers })
+      .then((res) => {
+        console.log(res);
+      }).catch((err) => {
+        this.borrowError = true;
+      }).finally(() => {
+        this.isBorrowing = false;
+      })
   }
 
 

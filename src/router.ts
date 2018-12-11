@@ -42,5 +42,10 @@ export default new Router({
       name: 'view-listing',
       component: () => import ('./views/Listing.vue'),
     },
+    {
+      path: '/user/:id',
+      name: 'user',
+      component: () => import ('./views/User.vue'),
+    },
   ],
 });
