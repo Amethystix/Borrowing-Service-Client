@@ -6,10 +6,49 @@
           <div class="page-title">
             {{ username }}
           </div>
+          <div class="page-text">
+            <span v-if="objects.length > 0">
+              This user has {{ objects.length }} listings up.
+            </span>
+          </div>
+          <div class="items" v-if="objects.length > 0">
+            <div class="small-btn-wrapper left">
+              <LButton btnClass="primary inline"
+                      btnLabel="<"
+                      v-on:buttonClick="previousObject()"
+                      v-bind:isDisabled="disablePrevious"
+                      btnId="previous-button">
+              </LButton>
+            </div>
+            <div v-for="item in currentObjects" class="item">
+              <router-link v-bind:to="'/item/' + item.objectId" class="item-name">
+                {{ item.objectName }}
+              </router-link>
+              <div class="item-description">
+                {{ item.description.length > 90 ? item.description.substring(0, 90) + '...' : item.description }}
+              </div>
+            </div>
+            <div class="small-btn-wrapper right">
+              <LButton btnClass="primary inline"
+                      btnLabel=">"
+                      v-on:buttonClick="nextObject()"
+                      v-bind:isDisabled="disableNext"
+                      btnId="next-button">
+              </LButton>
+            </div>
+          </div>
+          <div v-if="objects.length === 0">
+            <div class="no-items">
+              This user has not listed anything yet.
+            </div>
+          </div>
         </div>
         <div v-if="!userExists">
           <div class="page-title">
             404 Not Found
+          </div>
+          <div class="page-text not-found">
+            We're sorry, but the user you're looking for doesn't exist.
           </div>
         </div>
       </div>
@@ -18,19 +57,50 @@
 </template>
 
 <script lang="ts">
+import LButton from '@/components/shared/LButton.vue';
 import { Vue, Component, Watch } from 'vue-property-decorator';
 import axios from 'axios';
 
-@Component
+@Component({
+  components: {
+    LButton,
+  },
+})
 export default class User extends Vue {
 
   private userExists = false;
   private isLoading = true;
   private username!: string;
   private objects!: [any];
+  private currentObjects = new Array();
+  private index = 0;
+  private disableNext = true;
+  private disablePrevious = true;
 
   constructor() {
     super();
+  }
+
+  private previousObject() {
+    if (!this.disablePrevious) {
+      this.disableNext = false;
+      this.index--;
+      if (this.index === 0) {
+        this.disablePrevious = true;
+      }
+      this.currentObjects = this.objects.slice(this.index, this.index + 3);
+    }
+  }
+
+  private nextObject() {
+    if (!this.disableNext) {
+      this.disablePrevious = false;
+      this.index++;
+      if (this.index+3 === this.objects.length) {
+        this.disableNext = true;
+      }
+      this.currentObjects = this.objects.slice(this.index, this.index+3);
+    }
   }
 
   created() {
@@ -39,6 +109,12 @@ export default class User extends Vue {
         if (res.data.username) {
           this.username = res.data.username;
           this.objects = res.data.listedObjects;
+          if (this.objects.length > 3) {
+            this.currentObjects = this.objects.slice(0, 3);
+            this.disableNext = false;
+          } else {
+            this.currentObjects = this.objects;
+          }
           this.userExists = true;
         } else {
           this.userExists = false;
@@ -57,6 +133,12 @@ export default class User extends Vue {
         if (res.data.username) {
           this.username = res.data.username;
           this.objects = res.data.listedObjects;
+          if (this.objects.length > 3) {
+            this.currentObjects = this.objects.slice(0, 3);
+            this.disableNext = false;
+          } else {
+            this.currentObjects = this.objects;
+          }
           this.userExists = true;
         } else {
           this.userExists = false;
@@ -80,8 +162,71 @@ export default class User extends Vue {
     color: $light-black;
     margin: 30px auto;
     padding: 50px;
-    width: 700px;
+    width: 750px;
   }
+
+  .page-title {
+    margin-bottom: 10px;
+  }
+
+  .item {
+    background-color: $lavender;
+    border: 2px solid $mauve;
+    flex: 3 1 0;
+    height: 150px;
+    margin: 0 10px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .item-name {
+    color: $white;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      color: $plum;
+    }
+  }
+
+  .page-text {
+    text-align: center;
+  }
+
+  .small-btn-wrapper {
+    flex: 1 1 0;
+    margin: auto;
+  }
+
+  .items {
+    display: inline-flex;
+    margin: 40px auto;
+    width: 100%;
+  }
+
+  .item-description {
+    margin-top: 15px;
+    text-align: left;
+  }
+
+  .not-found {
+    font-size: 18px;
+    padding: 50px 0 75px;
+  }
+
+  .no-items {
+    font-size: 18px;
+    padding: 30px 0 150px;
+    text-align: center;
+  }
+
+  @media (max-width: $tablet-screen) {
+    .container {
+      width: 100%;
+    }
+  }
+
 }
 
 </style>

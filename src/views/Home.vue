@@ -20,7 +20,6 @@ import Feed from '@/components/shared/Feed.vue';
   },
 })
 export default class Home extends Vue {
-
 }
 </script>
 
