@@ -22,7 +22,8 @@
             <LButton btnId="borrow"
                      btnClass="primary"
                      v-bind:spinning="isBorrowing"
-                     btnLabel="Request to borrow"
+                     v-bind:btnLabel="listingObj.isReserved ? 'Currently unavailable' : 'Request to borrow'"
+                     v-bind:isDisabled="listingObj.isReserved || isBorrowing"
                      v-on:buttonClick="borrow()">
             </LButton>
           </div>
@@ -57,7 +58,7 @@ export default class Listing extends Vue {
   private listingExists = false;
   private isBorrowing = false;
 
-  created() {
+  private created() {
     axios.get('http://localhost:3000/item/view?id=' + this.$route.params.id)
       .then((res) => {
         if (res.data.name) {

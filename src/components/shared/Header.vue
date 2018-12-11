@@ -35,8 +35,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import SearchBar from '@/components/shared/SearchBar.vue';
+import AuthGuard from '@/scripts/auth.guard';
 
 @Component({
   components: {
