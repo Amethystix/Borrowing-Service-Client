@@ -1,7 +1,15 @@
 <template>
   <div v-bind:class="'feedItem ' + feedClass">
     <span>
-      {{ borrower }} borrowed <a v-bind:href="linkToItem">{{ itemName }}</a> from {{ owner }}
+      <router-link v-bind:to="'/user/' + borrowerId">
+        {{ borrower }}
+      </router-link> borrowed 
+      <router-link v-bind:to="'/item/' + linkToItem">
+        {{ itemName }}
+      </router-link> from 
+      <router-link v-bind:to="'/user/' + ownerId">
+        {{ owner }}
+      </router-link>
     </span>
   </div>
 </template>
@@ -17,6 +25,8 @@ export default class FeedItem extends Vue {
   @Prop() private borrower!: string;
   @Prop() private owner!: string;
   @Prop() private linkToItem!: string;
+  @Prop() private ownerId!: string;
+  @Prop() private borrowerId!: string;
 }
 </script>
 
