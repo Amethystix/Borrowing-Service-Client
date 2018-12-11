@@ -47,5 +47,10 @@ export default new Router({
       name: 'user',
       component: () => import ('./views/User.vue'),
     },
+    {
+      path: '/map-reduce',
+      name: 'map-reduce',
+      component: () => import ('./views/MapReduce.vue'),
+    },
   ],
 });
