@@ -98,7 +98,7 @@ export default new Router({
       component: () => import ('./views/Logout.vue'),
     },
     {
-      path: 'item/:id',
+      path: '/item/:id',
       name: 'view-listing',
       component: () => import ('./views/Listing.vue'),
     }

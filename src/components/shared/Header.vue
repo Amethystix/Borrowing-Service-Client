@@ -11,6 +11,9 @@
         <span class="about-link">
           <router-link to="/about">About</router-link>
         </span>
+        <span class="about-link" v-if="loggedIn">
+          <router-link to="/new-listing">Create a Listing</router-link>
+        </span>
         <span class="login-link" v-if="!loggedIn">
           <router-link to="/login">Log in</router-link>
         </span>
