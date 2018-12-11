@@ -21,7 +21,7 @@
           <router-link to="/register">Sign up</router-link>
         </span>
         <span class="login-link" v-if="loggedIn">
-          <router-link to="/">Hey, {{ firstName }}!</router-link>
+          <router-link v-bind:to="'/user/' + userId">Hey, {{ firstName }}!</router-link>
         </span>
         <span class="login-link" v-if="loggedIn">
           <router-link to="/logout">Log out</router-link>
@@ -48,6 +48,7 @@ export default class Header extends Vue {
 
   @Prop() private loggedIn!: boolean;
   @Prop() private firstName!: string;
+  @Prop() private userId!: string;
 
   constructor() {
     super();

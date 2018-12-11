@@ -2,7 +2,8 @@
   <div id="app">
     <pt-header
       v-bind:loggedIn="$cookies.get('token')"
-      v-bind:firstName="$cookies.get('user') ? $cookies.get('user').firstName : ''"/>
+      v-bind:firstName="$cookies.get('user') ? $cookies.get('user').firstName : ''"
+      v-bind:userId="$cookies.get('user') ? $cookies.get('user').uuid : ''"/>
     <router-view/>
     <pt-footer/>
   </div>

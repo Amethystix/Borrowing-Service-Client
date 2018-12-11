@@ -12,8 +12,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import FeedItem from '@/components/shared/FeedItem.vue';
+import axios from 'axios';
 
 @Component({
   components: {
@@ -21,63 +22,16 @@ import FeedItem from '@/components/shared/FeedItem.vue';
   },
 })
 export default class Feed extends Vue {
-  public feedItems = [
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-    {
-      borrower: 'Sarah',
-      itemName: 'Some Sugar',
-      linkToItem: '#',
-      owner: 'Henry',
-    },
-  ];
+
+  created() {
+
+  }
+
+  private getFeed() {
+
+  }
 }
+
 </script>
 
 <style lang="scss" scoped>

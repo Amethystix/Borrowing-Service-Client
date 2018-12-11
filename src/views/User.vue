@@ -21,18 +21,21 @@
 import { Vue, Component, Watch } from 'vue-property-decorator';
 import axios from 'axios';
 
+@Component
 export default class User extends Vue {
 
-  private userExists!: boolean;
+  private userExists = false;
   private isLoading = true;
   private username!: string;
   private objects!: [any];
 
-  @Watch ('$route')
-  onRouteChange() {
+  constructor() {
+    super();
+  }
+
+  created() {
     axios.get('http://localhost:3000/users/view?userId=' + this.$route.params.id)
       .then((res) => {
-        console.log(res);
         if (res.data.username) {
           this.username = res.data.username;
           this.objects = res.data.listedObjects;
@@ -47,10 +50,10 @@ export default class User extends Vue {
       });
   }
 
-  private created() {
+  @Watch ('$route')
+  onRouteChange() {
     axios.get('http://localhost:3000/users/view?userId=' + this.$route.params.id)
       .then((res) => {
-        console.log(res);
         if (res.data.username) {
           this.username = res.data.username;
           this.objects = res.data.listedObjects;
