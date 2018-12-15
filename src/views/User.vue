@@ -107,7 +107,7 @@ export default class User extends Vue {
     super();
   }
 
-  private rate (rating: number) {
+  private rate(rating: number) {
     this.ratingError = false;
     const payload = {
       username: this.username,

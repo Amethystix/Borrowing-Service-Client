@@ -1,7 +1,7 @@
 <template>
   <div id="search-bar">
-    <input type="text" id="search-input" placeholder="What are you looking for today?">
-    <LButton btnClass="search" btnId="search-button" btnLabel="Search"></LButton>
+    <input type="text" v-model="searchValue" id="search-input" placeholder="What are you looking for today?" v-on:keyup.enter="search()">
+    <LButton v-on:buttonClick="search()" btnClass="search" btnId="search-button" btnLabel="Search"></LButton>
   </div>
 </template>
 
@@ -16,6 +16,12 @@ import LButton from '@/components/shared/LButton.vue';
   },
 })
 export default class SearchBar extends Vue {
+
+  private searchValue = '';
+
+  private search() {
+    this.$router.push('/search/' + this.searchValue);
+  }
 
 }
 </script>

@@ -57,7 +57,7 @@ export default class Header extends Vue {
     });
   }
 
-  private created() {
+  created() {
     this.loggedIn = this.$cookies.get('user') ? true : false;
     if (this.loggedIn) {
       this.firstName = this.$cookies.get('user').firstName;

@@ -62,7 +62,7 @@ export default class Listing extends Vue {
   private isBorrowing = false;
   private borrowError = false;
 
-  public created() {
+  created() {
     axios.get('https://borrowing-svc-api.appspot.com/item/view?id=' + this.$route.params.id)
       .then((res) => {
         if (res.data.name) {

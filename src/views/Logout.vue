@@ -8,7 +8,7 @@ import { Vue, Component } from 'vue-property-decorator';
 @Component
 export default class Logout extends Vue {
 
-  private created() {
+  created() {
     this.$cookies.remove('token');
     this.$cookies.remove('user');
   }

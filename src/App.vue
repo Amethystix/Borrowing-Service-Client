@@ -4,7 +4,7 @@
       v-bind:loggedIn="$cookies.get('token')"
       v-bind:firstName="$cookies.get('user') ? $cookies.get('user').firstName : ''"
       v-bind:userId="$cookies.get('user') ? $cookies.get('user').uuid : ''"/>
-    <router-view/>
+      <router-view/>
     <pt-footer/>
   </div>
 </template>
@@ -24,6 +24,16 @@ export default {
 @import './assets/stylesheets/variables';
 body {
   background-color: $sandy-beige;
+  height: 100%;
   margin: 0;
+  position: relative;
+}
+
+#app {
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 103px;
 }
 </style>

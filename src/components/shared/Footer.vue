@@ -50,7 +50,7 @@ export default class Footer extends Vue {
 #footer {
 
   bottom: 0;
-  position: relative;
+  position: absolute;
   width: 100%;
 
   .outer-plum {
