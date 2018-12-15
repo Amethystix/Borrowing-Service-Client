@@ -10,6 +10,28 @@
             <span v-if="objects.length > 0">
               This user has {{ objects.length }} listings up.
             </span>
+            <span v-if="rating">
+              This user has a rating of {{ rating }} / 5
+            </span>
+            <span v-if="!rating">
+              This user has not yet been rated.
+            </span>
+            <span v-if="loggedIn && submittedRating === false" class="rating">
+              Rate this user?
+              <div class="rate">
+                <button v-on:click="rate(1)">1</button>
+                <button v-on:click="rate(2)">2</button>
+                <button v-on:click="rate(3)">3</button>
+                <button v-on:click="rate(4)">4</button>
+                <button v-on:click="rate(5)">5</button>
+              </div>
+            </span>
+            <span v-if="submittedRating" class="rating">
+              Thanks for submitting your rating!
+            </span>
+            <span v-if="ratingError" class="error-msg">
+              Your rating could not be submitted. Please try again.
+            </span>
           </div>
           <div class="items" v-if="objects.length > 0">
             <div class="small-btn-wrapper left">
@@ -76,9 +98,30 @@ export default class User extends Vue {
   private index = 0;
   private disableNext = true;
   private disablePrevious = true;
+  private rating!: number;
+  private loggedIn!: boolean;
+  private submittedRating = false;
+  private ratingError = false;
 
   constructor() {
     super();
+  }
+
+  private rate (rating: number) {
+    this.ratingError = false;
+    const payload = {
+      username: this.username,
+      rating,
+    };
+    if (this.submittedRating) {
+      this.ratingError = true;
+    }
+    axios.post('https://borrowing-svc-api.appspot.com/users/review', payload)
+      .then((res) => {
+        this.submittedRating = true;
+      }).catch((err) => {
+        this.ratingError = true;
+      });
   }
 
   private previousObject() {
@@ -104,9 +147,11 @@ export default class User extends Vue {
   }
 
   created() {
-    axios.get('http://localhost:3000/users/view?userId=' + this.$route.params.id)
+    this.loggedIn = this.$cookies.get('token') ? true : false;
+    axios.get('https://borrowing-svc-api.appspot.com/users/view?userId=' + this.$route.params.id)
       .then((res) => {
         if (res.data.username) {
+          this.rating = res.data.rating;
           this.username = res.data.username;
           this.objects = res.data.listedObjects;
           if (this.objects.length > 3) {
@@ -128,9 +173,11 @@ export default class User extends Vue {
 
   @Watch ('$route')
   onRouteChange() {
-    axios.get('http://localhost:3000/users/view?userId=' + this.$route.params.id)
+    this.loggedIn = this.$cookies.get('token') ? true : false;
+    axios.get('https://borrowing-svc-api.appspot.com/users/view?userId=' + this.$route.params.id)
       .then((res) => {
         if (res.data.username) {
+          this.rating = res.data.rating;
           this.username = res.data.username;
           this.objects = res.data.listedObjects;
           if (this.objects.length > 3) {
@@ -156,6 +203,11 @@ export default class User extends Vue {
 <style lang="scss" scoped>
 
 #User {
+
+  .rating {
+    margin-top: 10px;
+  }
+
   .container {
     background-color: $white;
     box-sizing: border-box;
@@ -192,6 +244,10 @@ export default class User extends Vue {
 
   .page-text {
     text-align: center;
+
+    span {
+      display: block;
+    }
   }
 
   .small-btn-wrapper {

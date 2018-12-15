@@ -44,7 +44,7 @@ export default class MapReduce extends Vue {
 
   callMapReduce() {
     this.isLoading = true;
-    axios.get('http://localhost:3000/reviews/map-reduce')
+    axios.get('https://borrowing-svc-api.appspot.com/reviews/map-reduce')
       .then((res) => {
         for (const key in res.data) {
           this.mapReduceResult.push( { uuid: key, rating: res.data[key] });

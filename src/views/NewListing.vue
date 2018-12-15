@@ -131,7 +131,7 @@ export default class NewListing extends Vue {
       const headers = {
         Authorization: this.$cookies.get('token'),
       };
-      axios.post('http://localhost:3000/item/add', payload, { headers })
+      axios.post('https://borrowing-svc-api.appspot.com/item/add', payload, { headers })
         .then ((res) => {
           if (res.data.id) {
             this.$router.push(`/item/${res.data.id}`);

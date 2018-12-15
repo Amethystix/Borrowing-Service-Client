@@ -62,8 +62,8 @@ export default class Listing extends Vue {
   private isBorrowing = false;
   private borrowError = false;
 
-  private created() {
-    axios.get('http://localhost:3000/item/view?id=' + this.$route.params.id)
+  public created() {
+    axios.get('https://borrowing-svc-api.appspot.com/item/view?id=' + this.$route.params.id)
       .then((res) => {
         if (res.data.name) {
           const {
@@ -90,7 +90,7 @@ export default class Listing extends Vue {
 
   @Watch ('$route')
   onRouteChange() {
-    axios.get('http://localhost:3000/item/view?id=' + this.$route.params.id)
+    axios.get('https://borrowing-svc-api.appspot.com/item/view?id=' + this.$route.params.id)
       .then((res) => {
         if (res.data.name) {
           const {
@@ -124,7 +124,7 @@ export default class Listing extends Vue {
       Authorization: this.$cookies.get('token'),
     }
     this.isBorrowing = true;
-    axios.post('http://localhost:3000/item/borrow', payload, { headers })
+    axios.post('https://borrowing-svc-api.appspot.com/item/borrow', payload, { headers })
       .then((res) => {
         console.log(res);
       }).catch((err) => {

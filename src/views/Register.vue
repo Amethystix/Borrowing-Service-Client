@@ -260,7 +260,7 @@ export default class Register extends Vue {
         password: this.password.value,
         confirmPassword: this.confirmPassword.value,
       };
-      axios.post('http://localhost:3000/users/register', payload)
+      axios.post('https://borrowing-svc-api.appspot.com/users/register', payload)
         .then((res) => {
           if (res.data.token) {
             // Set the cookies

@@ -43,7 +43,7 @@ export default class Feed extends Vue {
 
   private getFeed() {
     this.feedLoading = true;
-    axios.get('http://localhost:3000/utils/feed')
+    axios.get('https://borrowing-svc-api.appspot.com/utils/feed')
       .then((res) => {
         // If the resource has changed (304 is not modified)
         if (res.status !== 304) {
