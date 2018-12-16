@@ -8,4 +8,6 @@ module.exports = {
       ]
     }
   },
+  baseUrl: process.env.NODE_ENV === 'production'
+  	? '/borrowing-service-client/' : '/'
 }
