@@ -93,8 +93,8 @@ export default class Login extends Vue {
       axios.post('https://borrowing-svc-api.appspot.com/users/login', payload)
         .then((res) => {
           if (res.data.token) {
-            this.$cookies.set('token', res.data.token, undefined, undefined, 'localhost');
-            this.$cookies.set('user', res.data.userObj, undefined, undefined, 'localhost');
+            this.$cookies.set('token', res.data.token);
+            this.$cookies.set('user', res.data.userObj);
             this.$router.push('/');
           } else {
             this.loginError = true;
