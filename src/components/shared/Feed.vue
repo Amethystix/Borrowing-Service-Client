@@ -53,7 +53,6 @@ export default class Feed extends Vue {
 
       }).finally(() => {
         this.feedLoading = false;
-        console.log(this.feedItems);
       });
   }
 }
