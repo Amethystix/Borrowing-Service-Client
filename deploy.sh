@@ -11,6 +11,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-# git push -f git@github.com:lad475/borrowing-service-client.git master:gh-pages
+git push -f git@github.com:lad475/Borrowing-Service-Client.git master:gh-pages
 
 cd -
